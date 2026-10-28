@@ -1,6 +1,24 @@
 node_modules/
 .env
 .env.*
+!.env.example
 .next/
 .expo/
 dist/
+
+# Build e cache
+*.tsbuildinfo
+coverage/
+web/next-env.d.ts
+
+# Expo: projetos nativos gerados (usamos prebuild sob demanda)
+mobile/ios/
+mobile/android/
+
+# Supabase CLI
+supabase/.temp/
+supabase/.branches/
+
+# Sistema operacional e editor
+.DS_Store
+Thumbs.db

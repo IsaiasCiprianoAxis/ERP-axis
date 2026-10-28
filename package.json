@@ -1,0 +1,9 @@
+{
+  "name": "home-care-os",
+  "private": true,
+  "description": "Home Care OS: ERP para gestão de home care (web, mobile e Supabase)",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {}
+}
