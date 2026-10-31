@@ -16,3 +16,33 @@
 
 ## Especificação
 Ver docs/especificacao.md
+
+## Autenticação e papéis
+- O papel do usuário fica em `public.perfis` (fonte da verdade) e é definido
+  na criação por `public.criar_perfil` (só service role), chamada logo após
+  `auth.admin.createUser`. Usuário sem perfil tem papel null e nenhum acesso.
+- O claim `user_role` no JWT é um cache: só é atualizado quando o token é
+  renovado (refresh ou novo login). Use-o para roteamento nos apps, nunca
+  como única barreira de acesso.
+- O controle de acesso aos dados é imediato: o RLS consulta `papel_atual()`,
+  que lê `perfis` (incluindo `ativo`) a cada consulta.
+
+## Testes
+- RLS de `perfis`: `npm run test:rls` roda 25 verificações em
+  `supabase/tests/rls-perfis.test.ts`, contra o projeto Supabase de dev.
+
+## Configuração manual do Supabase (painel)
+Estes ajustes não ficam nas migrations nem no config.toml (que só vale
+para o ambiente local). Repetir sempre que o projeto for recriado ou um
+novo ambiente for criado:
+- Cadastro público desligado: Authentication → Sign In / Providers →
+  "Allow new users to sign up" desativado. Usuários são criados só pelo
+  admin (service role). Feito no projeto de dev kyqlyiatsegzchcxgzrq.
+- Custom Access Token Hook: Authentication → Hooks → Customize Access
+  Token (JWT) Claims → Postgres → public.hook_token_acesso.
+
+## Pendências
+- Antes do passo 3 da Fase 0: verificar a compatibilidade do TypeScript 6.0.3
+  (usado na raiz) com Next.js (web/) e Expo (mobile/). A raiz saiu do
+  TypeScript 7.0.2 porque o typescript-eslint 8.72.1 só aceita TS < 6.1.0.
+  Reavaliar o TS 7 quando o typescript-eslint passar a suportá-lo.
