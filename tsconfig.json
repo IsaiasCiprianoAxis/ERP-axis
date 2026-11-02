@@ -8,5 +8,5 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["supabase/tests/**/*.ts", "vitest.config.ts"]
+  "include": ["supabase/tests/**/*.ts", "scripts/**/*.ts", "vitest.config.ts"]
 }

@@ -27,6 +27,16 @@ Ver docs/especificacao.md
 - O controle de acesso aos dados é imediato: o RLS consulta `papel_atual()`,
   que lê `perfis` (incluindo `ativo`) a cada consulta.
 
+## Web (painel admin)
+- Toda página e toda Server Action de /admin deve checar no banco, via
+  `obterSessao()` (web/src/lib/supabase/servidor.ts), que o perfil tem
+  papel === 'admin' e ativo === true. O admin/layout.tsx faz essa checagem,
+  mas o Next não executa o layout de novo na navegação interna entre páginas
+  de /admin, então ele sozinho não basta.
+- A /login e a Server Action de login decidem o destino só pelo banco, nunca
+  pelo claim `user_role`. Sessão sem papel efetivo vê "acesso negado" na
+  /login, sem redirecionamento (evita loop com o proxy).
+
 ## Testes
 - RLS de `perfis`: `npm run test:rls` roda 25 verificações em
   `supabase/tests/rls-perfis.test.ts`, contra o projeto Supabase de dev.
@@ -54,3 +64,7 @@ novo ambiente for criado:
   minimatch (DoS via glob), só nas devDependencies do lint (ESLint e plugins);
   `npm audit --omit=dev` dá 0. Não rodar `npm audit fix --force` (faz downgrade
   para eslint 4). Reavaliar junto com a atualização do ESLint.
+- Script `admin:criar` (scripts/criar-admin.ts): roda com a execução nativa de
+  TypeScript do Node, que exige Node 22.18 ou mais novo. A raiz declara
+  `engines` "^20.19.0 || >=22.12.0", que aceita versões onde o script não roda.
+  Corrigir o `engines` da raiz ou documentar a exigência.

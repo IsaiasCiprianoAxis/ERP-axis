@@ -9,6 +9,7 @@
   "scripts": {
     "db:push": "supabase db push",
     "db:types": "supabase gen types typescript --linked --schema public > supabase/database.types.ts",
+    "admin:criar": "node --env-file=.env.local scripts/criar-admin.ts",
     "lint": "eslint .",
     "test:rls": "vitest run",
     "typecheck": "tsc --noEmit",
