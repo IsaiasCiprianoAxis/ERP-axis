@@ -2,6 +2,9 @@ import { redirect } from 'next/navigation';
 import { obterSessao } from '@/lib/supabase/servidor';
 import { sair } from '../login/actions';
 
+// Depende da sessão e das variáveis do Supabase: nunca pré-renderizar no build
+export const dynamic = 'force-dynamic';
+
 // Profissional e familiar usam o app mobile; a web é só para o admin.
 // Esta página nunca redireciona quem está logado, para não criar loop.
 export default async function UseOAplicativo() {

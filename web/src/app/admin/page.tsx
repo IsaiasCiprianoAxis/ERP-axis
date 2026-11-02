@@ -2,6 +2,9 @@ import { redirect } from 'next/navigation';
 import { obterSessao } from '@/lib/supabase/servidor';
 import { sair } from '../login/actions';
 
+// Depende da sessão e das variáveis do Supabase: nunca pré-renderizar no build
+export const dynamic = 'force-dynamic';
+
 export default async function PainelAdmin() {
   // Mesma checagem do layout (ver o aviso em admin/layout.tsx)
   const sessao = await obterSessao();

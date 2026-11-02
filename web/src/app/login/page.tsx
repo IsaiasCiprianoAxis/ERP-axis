@@ -3,6 +3,9 @@ import { papelEfetivo } from '@/lib/auth/destino';
 import { obterSessao } from '@/lib/supabase/servidor';
 import { entrar, sair } from './actions';
 
+// Depende da sessão e das variáveis do Supabase: nunca pré-renderizar no build
+export const dynamic = 'force-dynamic';
+
 type Props = {
   searchParams: Promise<{ erro?: string | string[] }>;
 };
