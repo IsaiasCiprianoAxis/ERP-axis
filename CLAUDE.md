@@ -72,3 +72,6 @@ novo ambiente for criado:
   TypeScript do Node, que exige Node 22.18 ou mais novo. A raiz declara
   `engines` "^20.19.0 || >=22.12.0", que aceita versões onde o script não roda.
   Corrigir o `engines` da raiz ou documentar a exigência.
+- Antes do deploy, confirmar que allowedOrigins não contém domínios de
+  Codespace em produção (a lista é vazia quando NODE_ENV é production).
+  Configuração em web/next.config.ts (experimental.serverActions).

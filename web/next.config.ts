@@ -8,11 +8,22 @@ import type { NextConfig } from 'next';
 // no carregamento nativo como ES module, onde __dirname não existe.
 const raizWeb = path.dirname(fileURLToPath(import.meta.url));
 
+// Origens extras aceitas em Server Actions, só fora de produção (Codespaces e
+// localhost). A checagem de origem também roda em produção, e liberar
+// *.app.github.dev lá aceitaria ações vindas de qualquer Codespace (CSRF).
+// Lista vazia = só a própria origem.
+const origensServerActions = process.env.NODE_ENV !== 'production' ? ['*.app.github.dev', 'localhost:3000'] : [];
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   outputFileTracingRoot: raizWeb,
   turbopack: {
     root: raizWeb,
+  },
+  experimental: {
+    serverActions: {
+      allowedOrigins: origensServerActions,
+    },
   },
   async headers() {
     return [
