@@ -50,6 +50,10 @@ novo ambiente for criado:
   admin (service role). Feito no projeto de dev kyqlyiatsegzchcxgzrq.
 - Custom Access Token Hook: Authentication → Hooks → Customize Access
   Token (JWT) Claims → Postgres → public.hook_token_acesso.
+- Admin de dev: criado com `npm run admin:criar` no projeto
+  kyqlyiatsegzchcxgzrq, e-mail axissaudeic@gmail.com. A senha não fica
+  registrada no repositório. Em um projeto novo, criar o admin de novo com o
+  mesmo script.
 
 ## Pendências
 - Antes do passo 3 da Fase 0: verificar a compatibilidade do TypeScript 6.0.3
