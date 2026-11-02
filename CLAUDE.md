@@ -46,3 +46,11 @@ novo ambiente for criado:
   (usado na raiz) com Next.js (web/) e Expo (mobile/). A raiz saiu do
   TypeScript 7.0.2 porque o typescript-eslint 8.72.1 só aceita TS < 6.1.0.
   Reavaliar o TS 7 quando o typescript-eslint passar a suportá-lo.
+- ESLint em web/: fica no 9.39.5 (fora de suporte) porque o
+  eslint-config-next 16.4.3 depende de eslint-plugin-react, eslint-plugin-import
+  e eslint-plugin-jsx-a11y, que não aceitam ESLint 10. Subir para o 10 (como na
+  raiz) quando o eslint-config-next e esses plugins passarem a aceitá-lo.
+- npm audit em web/: 16 vulnerabilidades moderadas aceitas. Todas vêm do
+  minimatch (DoS via glob), só nas devDependencies do lint (ESLint e plugins);
+  `npm audit --omit=dev` dá 0. Não rodar `npm audit fix --force` (faz downgrade
+  para eslint 4). Reavaliar junto com a atualização do ESLint.
